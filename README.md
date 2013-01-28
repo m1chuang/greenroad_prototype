@@ -18,6 +18,11 @@ Installation
 
 6.  go to "localhost:3000"
 
+```sh
+    node app.js
+
+```
+
 
 Suggestions
 ------------
