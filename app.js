@@ -15,7 +15,7 @@ users[1]  = {uid: 1, name: 'John',   type: "none"};
 users[2]  = {uid: 2, name: 'Jimmy', type: "none"};
 users[3]  = {uid: 3, name: 'chris', type: "none"};
 
-//index = uid (user id)
+//index = uid (user id) 
 //route_request stores the leg array of what GoogleMap Direction API returns
 route_request = {};
 riders  = {};
