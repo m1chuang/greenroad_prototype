@@ -34,7 +34,7 @@ exports.create = function(req, res){
     gm.directions(start, end, function(err, data){
         route_request[uid] = data.routes[0].legs[0];
         //set the user to driver
-        users[uid].isDriver = true;
+        users[uid].type = "driver";
         res.send(route_request[uid]);
     })
    

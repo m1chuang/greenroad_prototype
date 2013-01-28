@@ -11,7 +11,7 @@ var express = require('express')
 //NOTE: this is bad practice, but we'll use it for prototyping purposes
 users   = {};
 users[0]  = {uid: 0, name: 'George', type: "none"};
-users[1]  = {uid: 1, name: 'John', type: "none"};
+users[1]  = {uid: 1, name: 'John',   type: "none"};
 users[2]  = {uid: 2, name: 'Jimmy', type: "none"};
 users[3]  = {uid: 3, name: 'chris', type: "none"};
 

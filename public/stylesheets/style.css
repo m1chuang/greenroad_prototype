@@ -1,4 +1,5 @@
 body {
+
   padding: 5px;
   margin:0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -43,7 +44,7 @@ a {
     margin:0;
 }
 
-#routes_list{
+#routes_list, #rider_list{
     width: 100%;
     height: 120px;
   
@@ -53,7 +54,7 @@ a {
     padding: 0;
     
 }
-#routes_list >li{
+#routes_list >li, #rider_list>li{
     width: 100%;
     height: 30px;
     background-color: green;
@@ -62,6 +63,10 @@ a {
     font-size:  12px;
     overflow-x: hidden;
     
+}
+
+#rider_input_status{
+    color: red;
 }
 
 #control_wrapper #rider_control{

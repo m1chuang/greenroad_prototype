@@ -2,6 +2,8 @@ var map;
 var rendererOptions = {
     draggable: true
   };
+  
+
 //var defaultDriverPos = "34.062702,-118.44230099999999";
 var defaultDriverPos = new google.maps.LatLng( 34.062702, -118.44230099999999);
                              
@@ -40,8 +42,65 @@ function initializeDriverMap() {
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
       //computeTotalDistance(directionsDisplay.directions);
     });
+    
+    //listener functions for creating events
+	google.maps.event.addListener(map, 'click', function(e) {
+		if(riderMode == "start"){
+	    	console.log(e);
+	    	 $("#rider_input_status span").empty().append(rider['name'] + ", click on map to pick end location");
+            rider['start'] = e.latLng;
+            rider['start_marker'] = addRiderarker(e.latLng,rider['name']+" START location");
+	    	riderMode = "end";
+	    }else if(riderMode == "end"){
+	        rider['end'] = e.latLng;
+	        rider['end_marker'] = addRiderarker(e.latLng,rider['name']+" END location");
+	        
+	    	riderMode = "done";
+	    	$("#r_control").val("Add this request");
+	        $("#rider_input_status span").empty().append(rider['name'] + ", click to add this rider request");
+            /*var answer = confirm('Add this rider request?');
+        	if(answer)
+        	{
+        		//socket.emit('addNewVideo',id);
+        		console.log(rider);
+        	}*/
+	        
+	    
+	    }
+    
+	});
+    
     update();
 
+}
+
+
+function addRiderarker(location, txt) {
+    var pinColor = "0066FF";
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        new google.maps.Size(40, 37),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(12, 35));
+	var marker = new google.maps.Marker({map: map, 
+	                                     position: location, 
+	                                     clickable: true,
+	                                     title: txt,
+	                                     icon: pinImage,
+                                         shadow: pinShadow});
+    marker.info = new google.maps.InfoWindow({
+      content: txt
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      marker.info.open(map, marker);
+    });
+    return marker;
+  //map.panTo(location);
+  
+  
 }
 
 //DIRECTION FUNCTIONS
@@ -77,7 +136,7 @@ function update_nonDriver_user_list(){
             $("#nonDriver_user").empty();
             var riders = {};
             for (var i in data) 
-                if (!data[i].isDriver) 
+                if (data[i].type == "none") 
                      $("#nonDriver_user").append("<option value="+data[i].uid+">"+data[i].name+"</option>");
 
         },'json');
@@ -103,8 +162,42 @@ function new_driver_req(){
 
 }
 
+var riderMode = false;
+var rider = {};
 function new_rider_req(){
+    if(!riderMode){
+        //change status to input.
+        rider['uid'] = $("#nonDriver_user").val();
+        rider['name'] = $("#nonDriver_user option[value='"+rider['uid']+"']").text();
+        riderMode = "start";
+        $("#rider_input_status span").empty().append(rider['name'] + ", click on map to pick start location");
+        $("#r_control").val("cancel request");
+    }else if(riderMode == 'done'){
+        var answer = confirm('Add this rider request?');
+    	if(answer)
+    	{
+    		//make the ajax call to add this rider request
+    		console.log(rider);
+    	}
+        cancel_rider_request();
+    }else{
+        //turn it off
+        cancel_rider_request();
+        
+    }
 
+}
 
+function cancel_rider_request(){
+    riderMode = false;
+    $("#r_control").val("Create new route request from this");
+    $("#rider_input_status span").empty().append("off");
+    if(rider['start_marker']){
+        rider['start_marker'].setMap(null);
+    }
+    if(rider['end_marker']){
+        rider['end_marker'].setMap(null);
+    }
+    rider = {};
 }
 google.maps.event.addDomListener(window, "load", initializeDriverMap);
