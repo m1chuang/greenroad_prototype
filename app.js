@@ -56,6 +56,9 @@ app.get('/drivers/routes/:route_id', d_request.show);
 app.post('/drivers/routes', d_request.create);
 app.put('/drivers/routes/:route_id', d_request.update);
 
+//RIDE MATCH API
+app.get('/drivers/routes/:route_id/rideMatch', d_request.ride_match);
+
 //RIDERS API
 app.get('/riders/:rider_id', r_request.show);
 app.get('/riders', r_request.showAll);
@@ -78,9 +81,6 @@ app.get('/users/:id', function(req, res){
         res.send(users[req.params.id]);
     }
 });
-
-//END
-
 
 
 

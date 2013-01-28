@@ -21,7 +21,6 @@ exports.show = function(req, res){
        
     });*/
     
-
 };
 
 
@@ -66,3 +65,16 @@ exports.update = function(req, res){
     }
    
 };
+
+exports.rider_match = function(req, res){
+    var route_id = req.params.route_id;
+    //show up
+
+};
+
+
+//TODO: match rides given a route and a list of users.
+function matchRides(route, users){
+
+
+}
