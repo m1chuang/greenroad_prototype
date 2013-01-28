@@ -20,7 +20,8 @@ users[3]  = {uid: 3, name: 'chris', type: "none"};
 route_request = {};
 riders  = {};
 
-var d_routes = require('./routes/drivers/routes');
+var d_request = require('./routes/driver_request')
+  , r_request = require('./routes/rider_request');
 var app = express();
 
 app.configure(function(){
@@ -51,9 +52,16 @@ app.get('/', function(req,res){
 //app.get('/users', user.list);
 
 //DRIVERS ROUTES API
-app.get('/drivers/routes/:route_id', d_routes.show);
-app.post('/drivers/routes', d_routes.create);
-app.put('/drivers/routes/:route_id', d_routes.update);
+app.get('/drivers/routes/:route_id', d_request.show);
+app.post('/drivers/routes', d_request.create);
+app.put('/drivers/routes/:route_id', d_request.update);
+
+//RIDERS API
+app.get('/riders/:rider_id', r_request.show);
+app.get('/riders', r_request.showAll);
+app.post('/riders', r_request.create);
+app.put('/riders/:rider_id', r_request.update);
+
 
 
 //USERS API

@@ -13,6 +13,7 @@ var directionsService = new google.maps.DirectionsService();
 
 function update(){
     update_nonDriver_user_list();
+    update_riders_list();
 }
 
 /*Initialize*/
@@ -142,6 +143,20 @@ function update_nonDriver_user_list(){
         },'json');
     
 }
+function update_riders_list(){
+    $.get(
+        "/riders",
+        function(data){
+            $("#rider_list").empty();
+            var riders = {};
+            console.log(data);
+            for (var i in data.riders)
+                 $("#rider_list").append("<li>"+data.riders[i].name+", FROM: "+data.riders[i].start+" , TO: "+data.riders[i].end+"</li>");
+
+        },'json');
+
+}
+
 function new_driver_req(){
   
     var e = document.getElementById("end").value;
@@ -153,7 +168,8 @@ function new_driver_req(){
         type: "post",
         data: {uid: driver_uid, start: "34.062702,-118.44230099999999", end: e},
         success:function(data){
-            $("#routes_list").append("<li>FROM: "+data.start_address+" , TO: "+data.end_address+"</li>");
+            console.log(data);
+            $("#routes_list").append("<li>FROM: "+data.new_driver.start_address+" , TO: "+data.new_driver.end_address+"</li>");
             //console.log(data.end_address);
             update();
         },
@@ -176,7 +192,22 @@ function new_rider_req(){
         var answer = confirm('Add this rider request?');
     	if(answer)
     	{
+    	    //NOTE: reformat the logLot information
     		//make the ajax call to add this rider request
+    		 $.ajax({
+                url:"/riders",
+                type: "post",
+                data: {uid  : rider['uid'], 
+                       start: rider['start'].lat()+","+rider['start'].lng(), 
+                       end  : rider['end'].lat()+","+rider['end'].lng()},
+                success:function(data){
+                    //$("#rider_list").append("<li>"+data.newRider.name+", FROM: "+data.newRider.start+" , TO: "+data.newRider.end+"</li>");
+                    console.log(data);
+                    //console.log(data.end_address);
+                    update();
+                },
+                dataType: 'json'
+            });
     		console.log(rider);
     	}
         cancel_rider_request();

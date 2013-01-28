@@ -57,14 +57,22 @@ a {
 #routes_list >li, #rider_list>li{
     width: 100%;
     height: 30px;
-    background-color: green;
+  
     margin: 1px 0;
     line-height: 30px;
     font-size:  12px;
-    overflow-x: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+overflow: hidden;
     
 }
-
+#routes_list >li{
+    background-color: green;
+    
+}
+#rider_list>li{
+    background-color: orange;
+}
 #rider_input_status{
     color: red;
 }

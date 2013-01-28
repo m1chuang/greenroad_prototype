@@ -11,10 +11,10 @@ exports.show = function(req, res){
     var route_id = req.params.route_id;
     if(route_request[route_id]){
 
-        res.send(route_request[route_id]);
+        res.send({"status": "OK", "driver": route_request[route_id]});
     }else{
         //ERROR
-        res.send({"error": "route does not exists!"});
+        res.send({"status": "error", "error_msg" : "route does not exists!"});
     }
    /* gm.reverseGeocode('41.850033,-87.6500523', function(err, data){
         res.send(data);
@@ -28,14 +28,20 @@ exports.show = function(req, res){
 //send destination/ parse route from googlemapapi
 exports.create = function(req, res){
     console.log(req.body);
+    if(!req.body.uid || !req.body.start || !req.body.end){
+        //ERROR
+        res.send({"status": "error", "error_msg" : "incorrect param!"});
+
+    }
     var uid   = parseInt(req.body.uid);
     var start = req.body.start;
     var end   = req.body.end;
     gm.directions(start, end, function(err, data){
         route_request[uid] = data.routes[0].legs[0];
+        
         //set the user to driver
         users[uid].type = "driver";
-        res.send(route_request[uid]);
+        res.send({"status": "OK", "new_driver": route_request[uid]});
     })
    
 };
@@ -55,7 +61,8 @@ exports.update = function(req, res){
         })
     }else{
         //ERROR
-        res.send({"error": "route does not exists!"});
+        res.send({"status": "error", "error_msg" : "route does not exists!"});
+
     }
    
 };
