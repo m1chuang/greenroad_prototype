@@ -1,7 +1,6 @@
-Green Road Prototyp
+Green Road Prototype
 ================
 This is a really rough prototype for our carpooling app
-
 
 
 Installation
