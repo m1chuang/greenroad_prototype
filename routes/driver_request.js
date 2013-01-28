@@ -66,7 +66,7 @@ exports.update = function(req, res){
    
 };
 
-exports.rider_match = function(req, res){
+exports.ride_match = function(req, res){
     var route_id = req.params.route_id;
     //show up
 
