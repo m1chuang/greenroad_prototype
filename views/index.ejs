@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css">
+        
+    </style>
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC1MJxRNYKyb_-ONBOJt1wUHe03niXTxPw&sensor=true"> 
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/javascripts/script.js" type="text/javascript"></script>
+    
+</head>  
+<body>
+    <h1><%= title %></h1>
+    <div id="map_wrapper">
+        <div id="driver_map_canvas"></div>
+    </div>
+    <div id="control_wrapper">
+        <div id="driver_control">
+            <h3>Driver Control - (George) - uid: 0</h1>
+            <strong>Start: Tiverton Ave, UCLA. </strong><br>
+            <strong>End:  (ex. 2111 Sawtelle Blvd, Los Angeles): </strong>
+            <input type="text" name="start" id="end"  style="width:250px;" placeholder="volcano tea house, los angeles">
+            <input onclick="calcRoute()" type='button' value="Check!">
+            <br>
+            <input onclick="new_driver_req()" type='button' value="Create new route request from this">
+	 		<ul id="routes_list">
+	 		   
+	 		</ul>			
+        </div>
+        <hr>
+        <div id="rider_control">
+            <h3>Rider Control </h1> <select id="nonDriver_user"></select>
+            <input onclick="new_rider_req();" type=button value="create new ride request">
+            
+        </div>
+    </div>
+    <div id="clear_float"></div>
+    <div id="directionsPanel">
+        <p><span id="total"></span></p>
+    </div>
+</div>
+</body>
+</html>

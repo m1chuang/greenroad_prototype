@@ -1,0 +1,78 @@
+body {
+  padding: 5px;
+  margin:0px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#map_wrapper{
+    height:500px; 
+    width:500px; 
+
+    position: relative;
+    float: left;
+    top: 0;
+    margin-left: 10px;
+    border: solid black 2px;
+}
+#driver_map_canvas { 
+    height: 100%; 
+    width: 100%;
+}
+
+
+
+#control_wrapper{
+    position: absolute;
+    left: 550px;
+    padding:0;
+    margin-top:-40px;
+    
+    height: 500px;
+    width: 550px;
+    
+}
+
+#control_wrapper #driver_control{
+    height:50%;
+
+    padding:0;
+    margin:0;
+}
+
+#routes_list{
+    width: 100%;
+    height: 120px;
+  
+    overflow-y: scroll;
+    list-style:  none;
+    margin:0;
+    padding: 0;
+    
+}
+#routes_list >li{
+    width: 100%;
+    height: 30px;
+    background-color: green;
+    margin: 1px 0;
+    line-height: 30px;
+    font-size:  12px;
+    overflow-x: hidden;
+    
+}
+
+#control_wrapper #rider_control{
+    height: 50%;
+  
+}
+#clear_float{
+    clear:both;
+}
+#directionsPanel{
+    float: none;
+    width: 50%;
+    
+}
