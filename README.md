@@ -12,16 +12,18 @@ Installation
 
 3.  cd into the directory
 
-4.  install dependencies locally by " npm install -l"
+4.  install dependencies locally by 
+```sh
+    npm install -l
+```
 
-5.  "node app.js";
+5.  ```sh
+    node app.js
+    ```
 
 6.  go to "localhost:3000"
 
-```sh
-    node app.js
 
-```
 
 
 Suggestions
