@@ -14,6 +14,7 @@ var directionsService = new google.maps.DirectionsService();
 function update(){
     update_nonDriver_user_list();
     update_riders_list();
+    update_driver_list();
 }
 
 /*Initialize*/
@@ -130,6 +131,25 @@ function calcRoute() {
 function error(msg) {
   console.log('[ERROR]: ' + msg);
 }
+
+function update_driver_list(){
+    $.get(
+        "/drivers/routes",
+        function(data){
+            $("#routes_list").empty();
+            var riders = {};
+            console.log(data);
+            for (var i in data.drivers)
+                
+                $("#routes_list").append("<li>FROM: "+data.drivers[i].start_address+" , TO: "+data.drivers[i].end_address+"</li>");
+                
+                 //$("#routes_list").append("<li>"+data.riders[i].name+", FROM: "+data.riders[i].start+" , TO: "+data.riders[i].end+"</li>");
+
+        },'json');
+
+
+}
+
 function update_nonDriver_user_list(){
     $.get(
         "/users",
@@ -169,7 +189,7 @@ function new_driver_req(){
         data: {uid: driver_uid, start: "34.062702,-118.44230099999999", end: e},
         success:function(data){
             console.log(data);
-            $("#routes_list").append("<li>FROM: "+data.new_driver.start_address+" , TO: "+data.new_driver.end_address+"</li>");
+            //$("#routes_list").append("<li>FROM: "+data.new_driver.start_address+" , TO: "+data.new_driver.end_address+"</li>");
             //console.log(data.end_address);
             update();
         },
@@ -201,9 +221,8 @@ function new_rider_req(){
                        start: rider['start'].lat()+","+rider['start'].lng(), 
                        end  : rider['end'].lat()+","+rider['end'].lng()},
                 success:function(data){
-                    //$("#rider_list").append("<li>"+data.newRider.name+", FROM: "+data.newRider.start+" , TO: "+data.newRider.end+"</li>");
                     console.log(data);
-                    //console.log(data.end_address);
+                  
                     update();
                 },
                 dataType: 'json'

@@ -53,6 +53,7 @@ app.get('/', function(req,res){
 
 //DRIVERS ROUTES API
 app.get('/drivers/routes/:route_id', d_request.show);
+app.get('/drivers/routes', d_request.showAll);
 app.post('/drivers/routes', d_request.create);
 app.put('/drivers/routes/:route_id', d_request.update);
 

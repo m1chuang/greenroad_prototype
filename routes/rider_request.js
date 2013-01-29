@@ -20,9 +20,7 @@ exports.show = function(req, res){
 };
 
 exports.showAll = function(req, res){
-
     res.send({"status": "OK", "riders": riders});
-
 }
 
 //create new rider request

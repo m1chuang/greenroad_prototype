@@ -23,7 +23,10 @@ exports.show = function(req, res){
     
 };
 
+exports.showAll = function(req, res){
+    res.send({"status": "OK", "drivers": route_request});
 
+}
 //send destination/ parse route from googlemapapi
 exports.create = function(req, res){
     console.log(req.body);
